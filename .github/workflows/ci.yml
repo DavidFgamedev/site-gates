@@ -22,7 +22,9 @@ jobs:
       # No install step: the gates use only Node built-ins and the repo has no
       # dependencies. Nothing to cache, nothing to audit, nothing to go stale.
       - name: Run the test suite
-        run: node --test test/
+        # Glob the files rather than passing the directory: Node 22 resolves a bare
+        # `test/` as a module path and fails, while 18 and 20 treat it as a directory.
+        run: node --test test/*.test.mjs
 
   gates:
     name: gates against the example build

@@ -117,7 +117,7 @@ in your own repository.
 ## Tests
 
 ```bash
-npm test     # node --test test/
+npm test     # node --test test/*.test.mjs
 ```
 
 37 tests. Every gate has a **passing fixture and a failing fixture**, so the suite proves

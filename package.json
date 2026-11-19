@@ -11,7 +11,7 @@
     "gate:contrast": "node bin/site-gates.mjs contrast",
     "gate:mirror": "node bin/site-gates.mjs mirror",
     "gates": "npm run gate:vocabulary && npm run gate:contrast && npm run gate:mirror",
-    "test": "node --test test/"
+    "test": "node --test test/*.test.mjs"
   },
   "files": ["bin", "src", "README.md", "LICENSE"],
   "keywords": ["qa", "ci", "accessibility", "wcag", "contrast", "static-site", "linter"]
