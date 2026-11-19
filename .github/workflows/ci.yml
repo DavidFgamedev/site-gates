@@ -1,0 +1,63 @@
+name: gates
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: tests (node ${{ matrix.node }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node: ['18', '20', '22']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+      # No install step: the gates use only Node built-ins and the repo has no
+      # dependencies. Nothing to cache, nothing to audit, nothing to go stale.
+      - name: Run the test suite
+        run: node --test test/
+
+  gates:
+    name: gates against the example build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      # Dogfooding: the gates run against examples/site on every push, so the tools
+      # are exercised end to end and not only through their own unit tests.
+      - name: vocabulary
+        run: node bin/site-gates.mjs vocabulary
+      - name: contrast
+        run: node bin/site-gates.mjs contrast
+      - name: mirror
+        run: node bin/site-gates.mjs mirror
+
+  self-check:
+    name: the failing fixtures really do fail
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      # A guard that cannot fail is not a guard. This asserts the failing fixtures
+      # still exit non-zero, so a change that quietly defeats a gate breaks the build
+      # instead of turning the whole suite green.
+      - name: each gate must exit non-zero on its failing fixture
+        run: |
+          for gate in vocabulary contrast mirror; do
+            if node bin/site-gates.mjs "$gate" --config test/fixtures/configs/fail.json > /dev/null 2>&1; then
+              echo "::error::$gate passed on the failing fixture, so it is no longer detecting anything"
+              exit 1
+            fi
+            echo "ok: $gate correctly failed its failing fixture"
+          done

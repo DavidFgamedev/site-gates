@@ -1,0 +1,20 @@
+{
+  "vocabulary": {
+    "roots": ["test/fixtures/vocabulary/pass"],
+    "textExtensions": [".html", ".js", ".txt"],
+    "hard": ["projectbluebird", "lorem ipsum", "skunkworks"],
+    "soft": ["\\btodo\\b", "\\btemp\\b"],
+    "allow": ["template", "temperature"]
+  },
+  "contrast": {
+    "tokens": { "paper": "#ffffff", "ink": "#1a1a1a" },
+    "roles": [{ "role": "body", "fg": "ink", "on": ["paper"], "min": 4.5, "size": "16px" }]
+  },
+  "mirror": {
+    "pairs": [{
+      "name": "titles",
+      "source": { "file": "test/fixtures/mirror/pass/source.js", "pattern": "title: \"([^\"]+)\"" },
+      "mirror": { "file": "test/fixtures/mirror/pass/mirror.js", "pattern": "\"([^\"]+)\"", "between": ["const KNOWN = [", "];"] }
+    }]
+  }
+}

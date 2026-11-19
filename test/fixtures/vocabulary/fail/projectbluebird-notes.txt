@@ -1,0 +1,2 @@
+A file whose NAME carries the codename. Its body is entirely innocent, which is the point:
+a sweep that only reads bodies passes this file.

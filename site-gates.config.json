@@ -1,0 +1,126 @@
+{
+  "_comment": [
+    "Example configuration. Copy to site-gates.config.json and replace with your own.",
+    "The word lists here are illustrative: internal codenames, placeholder text and",
+    "profanity are the three things most commonly caught leaving a build. Your real",
+    "list belongs in your own repository, not in a published example."
+  ],
+  "vocabulary": {
+    "roots": [
+      "examples/site"
+    ],
+    "textExtensions": [
+      ".html",
+      ".js",
+      ".mjs",
+      ".css",
+      ".json",
+      ".svg",
+      ".txt",
+      ".md"
+    ],
+    "_hard": "No innocent use. Any occurrence fails, in a file name or a file body.",
+    "hard": [
+      "projectbluebird",
+      "acme-internal",
+      "skunkworks",
+      "lorem ipsum",
+      "staging.internal",
+      "do-not-ship"
+    ],
+    "_soft": "Ordinary words that also appear innocently. Regex. Fail only outside `allow`.",
+    "soft": [
+      "\\btodo\\b",
+      "\\bfixme\\b",
+      "\\bdraft\\b",
+      "\\btemp\\b",
+      "\\bdamn\\b",
+      "\\bcrap\\b"
+    ],
+    "_allow": [
+      "Each entry is why a soft hit is not a violation. Use specific strings, never bare",
+      "terms: allowing `temp` wholesale would make the sweep decorative."
+    ],
+    "allow": [
+      "template",
+      "temperature",
+      "contemporary",
+      "todomvc",
+      "draft-js",
+      "scrapbook"
+    ]
+  },
+  "contrast": {
+    "_comment": "WCAG 2.1: 4.5 for normal text, 3 for large (>=24px, or >=18.66px bold).",
+    "tokens": {
+      "ink": "#1a1a1a",
+      "inkMuted": "#595959",
+      "paper": "#ffffff",
+      "paperAlt": "#f2f2f2",
+      "accent": "#0b5c91"
+    },
+    "roles": [
+      {
+        "role": "body copy",
+        "fg": "ink",
+        "on": [
+          "paper",
+          "paperAlt"
+        ],
+        "min": 4.5,
+        "size": "16px"
+      },
+      {
+        "role": "muted caption",
+        "fg": "inkMuted",
+        "on": [
+          "paper"
+        ],
+        "min": 4.5,
+        "size": "13px"
+      },
+      {
+        "role": "link",
+        "fg": "accent",
+        "on": [
+          "paper",
+          "paperAlt"
+        ],
+        "min": 4.5,
+        "size": "16px"
+      },
+      {
+        "role": "page heading",
+        "fg": "ink",
+        "on": [
+          "paper"
+        ],
+        "min": 3,
+        "size": "32px"
+      }
+    ]
+  },
+  "mirror": {
+    "_comment": [
+      "A hand-maintained list against the data it mirrors. `source` is the real data;",
+      "`mirror` is the copy that goes stale. Each pattern needs one capture group."
+    ],
+    "pairs": [
+      {
+        "name": "page titles known to the nav",
+        "source": {
+          "file": "examples/site/pages.js",
+          "pattern": "title: \"([^\"]+)\""
+        },
+        "mirror": {
+          "file": "examples/site/nav.js",
+          "pattern": "\"([^\"]+)\"",
+          "between": [
+            "const NAV_TITLES = [",
+            "];"
+          ]
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,4 @@
+const KNOWN = [
+  "Alpha",
+  "Beta",
+];

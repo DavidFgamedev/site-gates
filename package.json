@@ -1,0 +1,18 @@
+{
+  "name": "site-gates",
+  "version": "1.0.0",
+  "description": "Three pre-commit gates for a static site build: banned vocabulary, WCAG contrast, and mirrored-list drift.",
+  "type": "module",
+  "license": "MIT",
+  "engines": { "node": ">=18" },
+  "bin": { "site-gates": "./bin/site-gates.mjs" },
+  "scripts": {
+    "gate:vocabulary": "node bin/site-gates.mjs vocabulary",
+    "gate:contrast": "node bin/site-gates.mjs contrast",
+    "gate:mirror": "node bin/site-gates.mjs mirror",
+    "gates": "npm run gate:vocabulary && npm run gate:contrast && npm run gate:mirror",
+    "test": "node --test test/"
+  },
+  "files": ["bin", "src", "README.md", "LICENSE"],
+  "keywords": ["qa", "ci", "accessibility", "wcag", "contrast", "static-site", "linter"]
+}

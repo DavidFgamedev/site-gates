@@ -1,0 +1,20 @@
+{
+  "vocabulary": {
+    "roots": ["test/fixtures/vocabulary/fail"],
+    "textExtensions": [".html", ".js", ".txt"],
+    "hard": ["projectbluebird", "lorem ipsum", "skunkworks"],
+    "soft": ["\\btodo\\b", "\\btemp\\b"],
+    "allow": ["template", "temperature"]
+  },
+  "contrast": {
+    "tokens": { "paper": "#ffffff", "faint": "#9a9a9a" },
+    "roles": [{ "role": "faint caption", "fg": "faint", "on": ["paper"], "min": 4.5, "size": "13px" }]
+  },
+  "mirror": {
+    "pairs": [{
+      "name": "titles",
+      "source": { "file": "test/fixtures/mirror/fail/source.js", "pattern": "title: \"([^\"]+)\"" },
+      "mirror": { "file": "test/fixtures/mirror/fail/mirror.js", "pattern": "\"([^\"]+)\"", "between": ["const KNOWN = [", "];"] }
+    }]
+  }
+}
